@@ -1,6 +1,7 @@
 {
     "app": "updator",
     "version": "v0.0.1-dev",
+    "sha": "44fda3eb700e613f34347a771f66c24b5c2a012e",
     "chunk_size": "3072",
     "chunk_count": "33",
     "crc32": "???"
