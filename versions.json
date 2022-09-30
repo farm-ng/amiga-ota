@@ -1,0 +1,23 @@
+{
+    "apps": [
+        {
+            "app": "dashboard",
+            "versions": [
+                "v0.0.8-dev"
+            ]
+        },
+        {
+            "app": "updator",
+            "versions": [
+                "v0.0.1-dev",
+                "v0.0.8-dev"
+            ]
+        },
+        {
+            "app": "installer",
+            "versions": [
+                "v0.0.8-dev"
+            ]
+        }
+    ]
+}
