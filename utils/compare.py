@@ -5,7 +5,7 @@ match the tapefile chunks downloaded by the updator app in amiga-fw
 import json
 
 dir1 = "/mnt/e/chunks"
-dir2 = "updator-v0.0.1-dev"
+dir2 = "dashboard-v0.0.8-dev"
 
 chunk_size = 256
 
