@@ -11,7 +11,7 @@ import json
 
 path = "dashboard-v0.0.8-dev"
 
-metadata = json.load(open(f"{path}/metadata.json","r"))
+metadata = json.load(open(f"{path}/metadata.json", "r"))
 print(metadata)
 tape_file = f"{metadata['app']}.tape"
 
