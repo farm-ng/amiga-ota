@@ -3,7 +3,8 @@
         {
             "app": "dashboard",
             "versions": [
-                "v0.0.8-dev"
+                "v0.0.8-dev",
+                "v0.0.9"
             ]
         },
         {
