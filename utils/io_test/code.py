@@ -2,12 +2,13 @@ from os import listdir, mkdir, remove
 from random import getrandbits
 from time import sleep
 
-chunk_size = 128
-chunk_count = 10
-chunk_dir = ""
+"""
+This version: Save directly into root
+"""
+chunk_size = 2048
+chunk_count = 50
 tape_name = "random"
-
-# test
+tape_file = f"{tape_name}.tape"
 
 # Check for writeable filesystem
 if "NO_USB" not in listdir():
@@ -17,7 +18,8 @@ if "NO_USB" not in listdir():
         sleep(3)
 else:
     try:
-        open("foo.foo", "wb")
+        with open("foo.foo", "wb"):
+            pass
         remove("foo.foo")
     except:
         while True:
@@ -28,55 +30,48 @@ else:
             sleep(3)
 
 sleep(2)
-i = 1
-# while True:
-print(f"Starting test {i}")
-# Prepare filesystem for clean test
-if chunk_dir in listdir():
-    for chunk_file in sorted(listdir(chunk_dir)):
-        print("removing:", f"{chunk_dir}/{chunk_file}")
-        remove(f"{chunk_dir}/{chunk_file}")
-else:
-    print(f"Making {chunk_dir}")
-    mkdir(chunk_dir)
-assert chunk_dir in listdir(), f"{chunk_dir} does not exist in filesystem"
+j = 1
+while True:
+    print(f"Starting test {j}")
 
-# Create chunks
-for i in range(chunk_count):
-    # path = f"{chunk_dir}/{tape_name}_chunk{i:03d}.tape"
-    path = f"{tape_name}_chunk{i:03d}.tape"
-    print(f"Creating: {path}")
-    f = open(path, "wb")
-    f.write(bytes(getrandbits(8) for _ in range(chunk_size)))
-    f.close()
+    # Prepare filesystem for clean test
+    for chunk_file in sorted([x for x in listdir() if "_chunk" in x]):
+        # Remove tape files too
+        print("removing:", chunk_file)
+        remove(chunk_file)
+    if tape_file in listdir():
+        # Remove tape files too
+        print("removing:", tape_file)
+        remove(tape_file)
+    # os.sync()
 
-print("\n-- chunk_dir --\n", listdir(chunk_dir), "\n-- chunk_dir --\n")
+    print("\n-- file_system pre --\n", listdir(), "\n--\n")
 
-# remove("NO_USB")
-# import microcontroller
+    # Create chunks
+    for i in range(chunk_count):
+        path = f"{tape_name}_chunk{i:03d}.tape"
+        print(f"Creating: {path}")
+        with open(path, "wb") as f:
+            f.write(bytes(getrandbits(8) for _ in range(chunk_size)))
+    # os.sync()
 
-# microcontroller.reset()
-# assert False
+    for i in range(chunk_count):
+        name = f"{tape_name}_chunk{i:03d}.tape"
+        assert name in listdir(), f"{name} does not exist"
 
-for i in range(chunk_count):
-    name = f"{tape_name}_chunk{i:03d}.tape"
-    assert name in listdir(chunk_dir), f"{name} does not exist in {chunk_dir}"
+    # Compile chunks
+    with open(tape_file, "wb") as f:
+        for chunk_file in sorted([x for x in listdir() if "_chunk" in x]):
+            print(f"Unpacking {chunk_file} into {tape_file}")
+            f.write(open(chunk_file, "rb").read())
+    # os.sync()
 
-# Compile chunks
-tape_file = f"{tape_name}.tape"
-f = open(tape_file, "wb")
-for chunk_file in sorted([x for x in listdir() if "_chunk" in x]):
-    print(f"Unpacking {chunk_file} into {tape_file}")
-    f.write(open(f"{chunk_dir}/{chunk_file}", "rb").read())
-    # f.write(open(f"{chunk_dir}/{chunk_file}", "rb").read())
-f.close()
+    print("\n-- file_system post --\n", listdir(), "\n--\n")
 
-print("\n-- file_system --\n", listdir(), "\n-- file_system --\n")
+    assert tape_file in listdir(), f"{tape_file} does not exist in filesystem"
 
-assert tape_file in listdir(), f"{tape_file} does not exist in filesystem"
-
-print("\n\n")
-print("PASSED")
-print("\n\n")
-i += 1
-sleep(1)
+    print("\n\n")
+    print("PASSED")
+    print("\n\n")
+    j += 1
+    sleep(1)
