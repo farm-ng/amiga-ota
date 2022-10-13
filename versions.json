@@ -3,12 +3,14 @@
         {
             "app": "dashboard",
             "versions": [
+                "v0.1.1",
                 "v0.0.8-dev"
             ]
         },
         {
             "app": "updator",
             "versions": [
+                "v0.1.1",
                 "v0.0.8-dev"
             ]
         }
