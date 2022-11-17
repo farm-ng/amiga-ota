@@ -2,6 +2,6 @@
     "app": "dashboard",
     "version": "v0.1.2",
     "sha": "c274bfdc5baa27d1ef955f61fdce30637f64b77c",
-    "chunk_size": "1024",
-    "chunk_count": "171"
+    "chunk_size": "512",
+    "chunk_count": "341"
 }
