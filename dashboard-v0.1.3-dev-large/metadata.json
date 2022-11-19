@@ -1,6 +1,6 @@
 {
     "app": "dashboard",
-    "version": "v0.1.3-dev",
+    "version": "v0.1.3-dev-large",
     "sha": "4654b87705fa0ec47da7d448d421e883c0b5a84d",
     "chunk_size": "2048",
     "chunk_count": "86"
