@@ -1,0 +1,6 @@
+d_mode,0,bool,0,1,1
+lang,0,,0,2,1
+units_dst,0,,0,3,1
+units_tmp,0,,0,1,1
+dispense_rate,0,mL/m,0,25.5,0.1
+wheel_baseline,725,mm,300,1500,1
